@@ -1,0 +1,14 @@
+# The legal documents are drafts pending sign-off and carry noindex per page.
+# Once they are reviewed and published, drop the Disallow lines and remove the
+# noIndex prop from each page component.
+User-agent: *
+Disallow: /privacy
+Disallow: /terms
+Disallow: /support
+Disallow: /account-deletion
+Disallow: /accessibility
+Disallow: /subscription-terms
+Disallow: /contact
+Allow: /
+
+Sitemap: https://carenotecoach.pages.dev/sitemap.xml

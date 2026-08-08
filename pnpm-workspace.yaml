@@ -1,0 +1,6 @@
+# Both packages ship a platform-specific native binary that their postinstall
+# script unpacks. The build fails without it. Nothing else in the tree is
+# allowed to run an install script.
+allowBuilds:
+  '@tailwindcss/oxide': true
+  esbuild: true

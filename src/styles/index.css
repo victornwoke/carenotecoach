@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+
+/*
+ * Fonts and palette are taken from the app itself (src/constants/theme.ts and the
+ * @expo-google-fonts packages it ships), so the site and the product read as one
+ * thing rather than two separately designed surfaces.
+ *
+ * Fraunces is the display face: a variable serif with optical-size and "soft"
+ * axes. Outfit is the text face. The pairing is deliberate; a serif masthead over
+ * a warm paper ground is what makes this read as a professional publication for
+ * care workers rather than a generic SaaS landing page.
+ */
+/* The two families are loaded via the documented Google Fonts CSS API in
+ * index.html, rather than hand-written @font-face rules pointing at guessed
+ * gstatic asset URLs. Both fall back to a system stack if the request fails. */
+
+@theme {
+  /* Straight from the app's design tokens. */
+  --color-ink: #1a2332;
+  --color-ink-2: #4b5563;
+  --color-ink-3: #656a72;
+  --color-paper: #faf8f5;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f0eb;
+  --color-teal: #1a5f6e;
+  --color-teal-light: #e6f3f6;
+  --color-teal-dark: #134a57;
+  --color-ochre: #9a5b13;
+  --color-ochre-light: #fff2dc;
+  --color-rule: #e0d9d0;
+  --color-success: #166534;
+  --color-success-bg: #ecfdf5;
+
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 20;
+    letter-spacing: -0.02em;
+  }
+
+  /* Visible keyboard focus everywhere, never removed. WCAG 2.2 AA. */
+  :focus-visible {
+    outline: 3px solid var(--color-teal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-teal);
+    color: #fff;
+  }
+}
+
+@layer utilities {
+  /* Hairline rule used to separate editorial sections without a heavy border. */
+  .rule-top {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* The masthead measure: legal prose caps out for readability, ~68 characters. */
+  .measure {
+    max-width: 34rem;
+  }
+}
+
+/* Print: legal pages must print cleanly. Care staff and reviewers do print these. */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    word-break: break-all;
+  }
+}
