@@ -119,7 +119,7 @@ export function AccessibilityPage() {
           <p>
             If something in CareNote Coach is hard or impossible to use with assistive
             technology:{' '}
-            <Fact field="accessibilityEmail">
+            <Fact field="contactEmail">
               {(email) => (
                 <a href={`mailto:${email}`} className="font-medium">
                   {email}

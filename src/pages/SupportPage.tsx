@@ -71,7 +71,7 @@ export function SupportPage() {
 
         <LegalSection heading="How to contact us">
           <p>
-            <Fact field="supportEmail">
+            <Fact field="contactEmail">
               {(email) => (
                 <a href={`mailto:${email}`} className="font-medium">
                   {email}

@@ -23,23 +23,30 @@ export interface SiteConfig {
   /** iOS bundle identifier, quoted in support/troubleshooting copy. */
   bundleId: string;
 
-  /** Registered legal entity name, e.g. "CareNote Coach Ltd". Null until incorporation is confirmed. */
+  /**
+   * The name the business trades under and is legally identified by. For a sole
+   * trader this is the individual's own name, optionally with a trading name,
+   * e.g. "A Person trading as CareNote Coach". Null until confirmed.
+   */
   legalEntityName: string | null;
-  /** e.g. "Private limited company", "Sole trader". Null until confirmed. */
-  legalEntityType: string | null;
-  /** Companies House number, or null if not incorporated / not yet confirmed. */
+  /** Confirmed 2026-08-08: operating as a sole trader, not an incorporated company. */
+  legalEntityType: string;
+  /** Companies House number. Always null for a sole trader; there isn't one. */
   companyNumber: string | null;
-  /** Registered postal address. Null until confirmed. Never a placeholder street. */
-  registeredAddress: string | null;
+  /**
+   * A geographic postal address for the business. A sole trader has no registered
+   * office, but UK GDPR still requires a contactable controller address and
+   * consumer law requires a trader's geographic address. Null until confirmed.
+   */
+  businessAddress: string | null;
 
-  /** General support inbox. Null until the mailbox exists and has been tested. */
-  supportEmail: string | null;
-  /** Privacy / data-rights inbox. Null until the mailbox exists and has been tested. */
-  privacyEmail: string | null;
-  /** Accessibility feedback inbox. Null until confirmed. */
-  accessibilityEmail: string | null;
-  /** Route for users who want deletion but cannot sign in. Null until confirmed. */
-  assistedDeletionEmail: string | null;
+  /**
+   * The single inbox handling support, privacy and data rights, accessibility,
+   * and assisted account deletion. One address was chosen deliberately on
+   * 2026-08-08: four aliases nobody monitors is worse than one that is answered.
+   * Split this back out only when there is a real reason to route separately.
+   */
+  contactEmail: string | null;
 
   /** Governing law and courts. Null: a real decision given four-nation scope, not a default. */
   governingLaw: string | null;
@@ -70,22 +77,20 @@ export const siteConfig: SiteConfig = {
   siteUrl: 'https://carenotecoach.pages.dev',
   bundleId: 'com.carenotecoach.app',
 
-  // Blocker C4 in the app repo's docs/LAUNCH_RUNBOOK.md. Needs incorporation or a
-  // confirmed sole-trader identity, then a solicitor's review.
+  // Blocker C4. The trading name and address are still outstanding.
   legalEntityName: null,
-  legalEntityType: null,
-  companyNumber: null,
-  registeredAddress: null,
+  legalEntityType: 'Sole trader',
+  companyNumber: null, // Correct value for a sole trader. Not an outstanding blank.
+  businessAddress: null,
 
-  // Blocker C3. Needs a real, tested inbox before any of these can publish.
-  supportEmail: null,
-  privacyEmail: null,
-  accessibilityEmail: null,
-  assistedDeletionEmail: null,
+  // Blocker C3. Needs a domain and a real, tested mailbox. Note that a
+  // *.pages.dev subdomain cannot provide email, so this needs a bought domain.
+  contactEmail: null,
 
-  // Deliberately null. CareNote Coach serves England, Scotland, Wales and Northern
-  // Ireland as equal jurisdictions, so defaulting to England and Wales without legal
-  // input would be a real error, not a harmless placeholder.
+  // Deliberately deferred on 2026-08-08: no solicitor engaged yet. CareNote Coach
+  // serves England, Scotland, Wales and Northern Ireland as equal jurisdictions, so
+  // defaulting to England and Wales without legal input would be a real error, not
+  // a harmless placeholder. The site stays in honest-draft mode until this closes.
   governingLaw: null,
   // SEC-008 requires UK or ICO-adequate hosting with documented residency.
   hostingRegion: null,
@@ -107,12 +112,8 @@ export const siteConfig: SiteConfig = {
 /** Fields that must be non-null before the site is fit to publish. */
 export const REQUIRED_BEFORE_PUBLISH = [
   'legalEntityName',
-  'legalEntityType',
-  'registeredAddress',
-  'supportEmail',
-  'privacyEmail',
-  'accessibilityEmail',
-  'assistedDeletionEmail',
+  'businessAddress',
+  'contactEmail',
   'governingLaw',
   'hostingRegion',
 ] as const satisfies readonly (keyof SiteConfig)[];
@@ -121,30 +122,20 @@ export type RequiredBeforePublish = (typeof REQUIRED_BEFORE_PUBLISH)[number];
 
 /** Human-readable label per outstanding field, for the on-page notice. */
 export const FIELD_LABELS: Record<RequiredBeforePublish, string> = {
-  legalEntityName: 'registered legal entity name',
-  legalEntityType: 'legal entity type',
-  registeredAddress: 'registered postal address',
-  supportEmail: 'support email inbox',
-  privacyEmail: 'privacy and data-rights inbox',
-  accessibilityEmail: 'accessibility feedback inbox',
-  assistedDeletionEmail: 'assisted account-deletion route',
+  legalEntityName: 'the name the business trades under',
+  businessAddress: 'a business postal address',
+  contactEmail: 'a working contact inbox',
   governingLaw: 'governing law and jurisdiction',
   hostingRegion: 'confirmed data hosting region',
 };
 
 /** Which outstanding fields each page depends on, so notices are page-specific. */
 export const PAGE_DEPENDENCIES = {
-  privacy: [
-    'legalEntityName',
-    'legalEntityType',
-    'registeredAddress',
-    'privacyEmail',
-    'hostingRegion',
-  ],
-  terms: ['legalEntityName', 'legalEntityType', 'registeredAddress', 'governingLaw'],
-  support: ['supportEmail'],
-  accountDeletion: ['assistedDeletionEmail'],
-  accessibility: ['accessibilityEmail'],
+  privacy: ['legalEntityName', 'businessAddress', 'contactEmail', 'hostingRegion'],
+  terms: ['legalEntityName', 'businessAddress', 'governingLaw'],
+  support: ['contactEmail'],
+  accountDeletion: ['contactEmail'],
+  accessibility: ['contactEmail'],
   subscriptionTerms: [],
 } as const satisfies Record<string, readonly RequiredBeforePublish[]>;
 

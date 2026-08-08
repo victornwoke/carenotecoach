@@ -90,7 +90,7 @@ export function AccountDeletionPage() {
         <LegalSection heading="If you can't sign in">
           <p>
             If you want your account deleted but cannot get into the app to do it yourself:{' '}
-            <Fact field="assistedDeletionEmail">
+            <Fact field="contactEmail">
               {(email) => (
                 <a href={`mailto:${email}`} className="font-medium">
                   {email}

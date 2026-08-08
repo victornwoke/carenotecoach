@@ -61,7 +61,7 @@ export function PrivacyPage() {
             <strong>Data controller:</strong> <Fact field="legalEntityName" />
           </p>
           <p>
-            <strong>Data protection contact:</strong> <Fact field="privacyEmail" />
+            <strong>Data protection contact:</strong> <Fact field="contactEmail" />
           </p>
         </LegalSection>
 
