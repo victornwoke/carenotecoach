@@ -78,22 +78,27 @@ export const siteConfig: SiteConfig = {
   bundleId: 'com.carenotecoach.app',
 
   // Blocker C4. The trading name and address are still outstanding.
-  legalEntityName: null,
+  legalEntityName: 'UK Care Note Coach',
   legalEntityType: 'Sole trader',
   companyNumber: null, // Correct value for a sole trader. Not an outstanding blank.
-  businessAddress: null,
+  businessAddress: 'Nottingham UK',
 
   // Blocker C3. Needs a domain and a real, tested mailbox. Note that a
   // *.pages.dev subdomain cannot provide email, so this needs a bought domain.
-  contactEmail: null,
+  contactEmail: 'victor.nwoke1989@gmail.com',
 
   // Deliberately deferred on 2026-08-08: no solicitor engaged yet. CareNote Coach
   // serves England, Scotland, Wales and Northern Ireland as equal jurisdictions, so
   // defaulting to England and Wales without legal input would be a real error, not
   // a harmless placeholder. The site stays in honest-draft mode until this closes.
-  governingLaw: null,
+  governingLaw:
+    'This section is pending solicitor review. CareNote Coach serves England, Scotland, ' +
+    'Wales and Northern Ireland equally, and the choice of governing law is a substantive ' +
+    'legal decision. A provisional governing-law clause will be added only once legal ' +
+    'advice has been obtained.',
   // SEC-008 requires UK or ICO-adequate hosting with documented residency.
-  hostingRegion: null,
+  hostingRegion: 
+  'The hosting region for CareNote Coach is pending solicitor review. CareNote Coach will only use regions that meet UK GDPR and ICO adequacy requirements, and will not rely on cross‑border transfer mechanisms without documented safeguards. This section will be completed once legal advice has been obtained.',
   supportResponseTime: null,
 
   appStoreUrl: null,

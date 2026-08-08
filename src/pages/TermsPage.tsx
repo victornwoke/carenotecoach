@@ -196,10 +196,7 @@ export function TermsPage() {
 
         <LegalSection heading="14. Governing law and jurisdiction">
           <p>
-            <Fact field="governingLaw" />. Because CareNote Coach is deliberately built to
-            serve England, Scotland, Wales and Northern Ireland as equal jurisdictions, the
-            choice of governing law and courts is a real legal decision. It is not defaulted
-            casually to England and Wales without legal input.
+            <Fact field="governingLaw" />
           </p>
         </LegalSection>
       </LegalLayout>
