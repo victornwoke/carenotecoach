@@ -167,7 +167,7 @@ export function PrivacyPage() {
             session.
           </p>
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+            <table className="w-full border-collapse text-[0.9375rem]">
               <thead>
                 <tr className="border-b border-rule text-left">
                   <th className="py-2 pr-4 font-semibold text-ink">Provider</th>
@@ -207,7 +207,7 @@ export function PrivacyPage() {
 
         <LegalSection heading="How long we keep your data">
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse text-sm">
+            <table className="w-full border-collapse text-[0.9375rem]">
               <thead>
                 <tr className="border-b border-rule text-left">
                   <th className="py-2 pr-4 font-semibold text-ink">Data</th>

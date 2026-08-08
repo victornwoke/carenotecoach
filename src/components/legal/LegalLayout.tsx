@@ -29,7 +29,7 @@ export function LegalLayout({
   children,
 }: LegalLayoutProps) {
   return (
-    <article className="mx-auto max-w-2xl px-5 py-16 print:py-2">
+    <article className="mx-auto max-w-4xl px-5 py-16 print:py-2">
       <header className="mb-10">
         <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-teal print:text-black">
           {eyebrow}
@@ -51,7 +51,9 @@ export function LegalLayout({
           <time dateTime={lastUpdated}>{formatDate(lastUpdated)}</time>
         </p>
 
-        {intro ? <p className="mt-5 leading-relaxed text-ink-2">{intro}</p> : null}
+        {intro ? (
+          <p className="mt-5 max-w-2xl text-[1.0625rem] leading-[1.7] text-ink-2">{intro}</p>
+        ) : null}
       </header>
 
       {notice ? <div className="mb-10">{notice}</div> : null}
@@ -72,8 +74,13 @@ export function LegalSection({
 }) {
   return (
     <section id={id} className="scroll-mt-24">
-      <h2 className="mb-3 text-xl font-bold text-ink">{heading}</h2>
-      <div className="space-y-4 leading-relaxed text-ink-2 [&_a]:text-teal [&_a]:underline [&_a]:underline-offset-4 [&_li]:leading-relaxed [&_strong]:font-semibold [&_strong]:text-ink [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
+      <h2 className="mb-4 text-2xl font-bold text-ink">{heading}</h2>
+      {/*
+        Type scales with the column. At this width 16px prose runs past 100
+        characters a line, which is past the comfortable reading range, so the
+        body steps up to 17px with looser leading to bring it back.
+      */}
+      <div className="space-y-4 text-[1.0625rem] leading-[1.75] text-ink-2 [&_a]:text-teal [&_a]:underline [&_a]:underline-offset-4 [&_li]:leading-[1.7] [&_strong]:font-semibold [&_strong]:text-ink [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-5">
         {children}
       </div>
     </section>

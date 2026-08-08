@@ -19,7 +19,7 @@ export function NotFoundPage() {
         path="/404"
         noIndex
       />
-      <div className="mx-auto max-w-2xl px-5 py-28">
+      <div className="mx-auto max-w-4xl px-5 py-28">
         <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-teal">404</p>
         <h1 className="text-4xl font-black text-ink sm:text-5xl">Page not found</h1>
         <p className="measure mt-5 leading-relaxed text-ink-2">
